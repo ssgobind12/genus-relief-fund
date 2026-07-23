@@ -164,21 +164,28 @@ let barChart = null;
 let pieChart = null;
 
 function loadCharts(stats) {
-    if (typeof Chart === 'undefined') return;
+    if (typeof Chart === 'undefined') {
+        setTimeout(() => loadCharts(stats), 100);
+        return;
+    }
 
-    // Daily Donations Bar Chart
+    // Daily Donations Line Chart
     const barCtx = document.getElementById('dailyChart');
     if (barCtx) {
         if (barChart) barChart.destroy();
         barChart = new Chart(barCtx, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: ['6 Days Ago', '5 Days Ago', '4 Days Ago', '3 Days Ago', '2 Days Ago', 'Yesterday', 'Today'],
                 datasets: [{
                     label: 'Donation Amount (₹)',
                     data: [15000, 22000, 18000, 35000, 28000, 40000, stats.today || 0],
-                    backgroundColor: '#004B9B',
-                    borderRadius: 4
+                    backgroundColor: 'rgba(0, 75, 155, 0.2)',
+                    borderColor: '#004B9B',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: '#004B9B'
                 }]
             },
             options: {

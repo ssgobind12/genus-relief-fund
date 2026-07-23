@@ -26,6 +26,7 @@ async function initApp() {
   setupCopyUPI();
   setupDownloadQR();
   setupImpactCards();
+  loadSecureQR();
   
   // Security measures
   initSecurity();
@@ -271,16 +272,40 @@ function setupCopyUPI() {
 // ==================== DOWNLOAD QR ====================
 
 function setupDownloadQR() {
-  const downloadBtn = document.getElementById('download-qr-btn');
-  const qrImage = document.getElementById('qr-image');
-
-  if (downloadBtn && qrImage) {
-    downloadBtn.addEventListener('click', () => {
-      const link = document.createElement('a');
-      link.download = 'Genus_Relief_UPI_QR.jpg';
-      link.href = qrImage.src;
-      link.click();
+  const btn = document.getElementById('download-qr-btn');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const canvas = document.getElementById('qr-canvas');
+      if (canvas) {
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/jpeg');
+        a.download = 'genus-relief-fund-qr.jpg';
+        a.click();
+      }
     });
+  }
+}
+
+async function loadSecureQR() {
+  try {
+    const res = await fetch('./assets/qr-data.bin');
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.getElementById('qr-canvas');
+      if (canvas) {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+      }
+      URL.revokeObjectURL(url);
+    };
+    img.src = url;
+  } catch(e) {
+    console.error('Failed to load QR code', e);
   }
 }
 

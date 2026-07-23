@@ -70,6 +70,7 @@
           <i data-lucide="moon" class="icon-moon"></i>
           <i data-lucide="sun" class="icon-sun" style="display:none;"></i>
         </button>
+        <a href="#" class="nav-cert-btn" id="nav-get-cert-btn"><i data-lucide="award"></i> Get Certificate</a>
         <a href="#donation-section" class="nav-donate-btn">Donate Now</a>
       </div>
 
@@ -590,10 +591,9 @@
           <p>Sivsagar, Assam</p>
         </div>
         <div class="success-buttons" style="margin-top: 20px;">
-          <button class="btn btn-primary" id="btn-download-cert">
-            <i data-lucide="download"></i>
-            Download Thank You Certificate
-          </button>
+          <p class="verification-note" style="margin-bottom: 20px; font-weight: 500; color: #ffb300;">
+            <i data-lucide="clock"></i> Your donation is pending verification. Please check back later to download your certificate using the "Get Certificate" button at the top.
+          </p>
           <button class="btn btn-secondary" id="btn-share-contribution">
             <i data-lucide="share-2"></i>
             Share Your Contribution
@@ -604,6 +604,32 @@
           </button>
         </div>
 
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CERTIFICATE MODAL ==================== -->
+  <div id="cert-modal" class="share-modal" style="display:none;">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content share-modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <i data-lucide="award"></i>
+          Get Your Certificate
+        </h3>
+        <button class="modal-close" id="cert-modal-close" aria-label="Close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="cert-modal-body" style="padding: 20px 0;">
+        <p style="margin-bottom: 15px; color: #475569; font-size: 0.95rem;">Enter the mobile number you used for your donation to download your verified certificate.</p>
+        <div class="form-group">
+          <input type="tel" id="cert-mobile" class="form-input" placeholder="Enter Mobile Number" pattern="[0-9]{10}">
+        </div>
+        <div id="cert-status-msg" style="margin: 10px 0; font-size: 0.9rem; font-weight: 500;"></div>
+        <button class="btn btn-primary" id="btn-check-cert" style="width: 100%; margin-top: 10px;">
+          Check & Download
+        </button>
       </div>
     </div>
   </div>

@@ -7,6 +7,43 @@ export const DEMO_MODE = !supabaseUrl || supabaseUrl === 'https://your-project.s
 
 export const supabase = DEMO_MODE ? null : createClient(supabaseUrl, supabaseKey);
 
+/**
+ * Check donation status by mobile number
+ */
+export async function checkDonationStatus(mobile) {
+  if (DEMO_MODE) {
+    // Demo mode mock response
+    return new Promise(resolve => {
+      setTimeout(() => {
+        if (mobile === '9999999999') {
+          resolve({ status: 'verified', donor_name: 'Demo User', amount: 5000 });
+        } else {
+          resolve({ status: 'pending' });
+        }
+      }, 800);
+    });
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('donations')
+      .select('status, donor_name, amount')
+      .eq('mobile', mobile)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single();
+
+    if (error) {
+      if (error.code === 'PGRST116') return null; // No rows found
+      throw error;
+    }
+    return data;
+  } catch (error) {
+    console.error('Error checking donation status:', error);
+    return null;
+  }
+}
+
 // Demo data
 const DEMO_DONATIONS = [
   { id: '1', donor_name: 'Rahul Sharma', mobile: '9876543210', email: 'rahul@email.com', amount: 5000, transaction_id: 'UTR123456789', city: 'Jorhat', is_anonymous: false, is_verified: true, is_rejected: false, message: 'Stay strong!', created_at: new Date(Date.now() - 120000).toISOString() },

@@ -275,6 +275,30 @@ button, input, textarea, select {
   gap: var(--space-4);
 }
 
+.nav-cert-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background-color: rgba(0, 75, 155, 0.1);
+  transition: all var(--transition-fast);
+}
+.nav-cert-btn:hover {
+  background-color: rgba(0, 75, 155, 0.2);
+}
+[data-theme="dark"] .nav-cert-btn {
+  color: var(--color-white);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .nav-cert-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
 .dark-mode-toggle {
   background: var(--bg-input);
   width: 40px;

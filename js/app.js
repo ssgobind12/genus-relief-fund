@@ -11,6 +11,7 @@ import { initProgressBar, updateProgress } from './progress-bar.js';
 import { initShare } from './share.js';
 import { initGallery } from './gallery.js';
 import { downloadCertificate } from './certificate.js';
+import { initCertificateCheck } from './certificate-check.js';
 
 document.addEventListener('DOMContentLoaded', initApp);
 
@@ -48,6 +49,7 @@ async function initApp() {
   initRecentDonations();
   initShare();
   initGallery();
+  initCertificateCheck();
 
   // Load data
   await refreshData();
@@ -364,18 +366,6 @@ function setupSuccessListeners() {
   // Listen for donation success event
   window.addEventListener('donationSuccess', (e) => {
     fireConfetti();
-
-    // Certificate download button
-    const downloadBtn = document.getElementById('btn-download-cert');
-    if (downloadBtn) {
-      const newBtn = downloadBtn.cloneNode(true);
-      downloadBtn.parentNode.replaceChild(newBtn, downloadBtn);
-      newBtn.addEventListener('click', () => {
-        downloadCertificate(e.detail.name, e.detail.amount);
-      });
-      // Re-create icons in cloned button
-      if (window.lucide) window.lucide.createIcons({ nodes: [newBtn] });
-    }
 
     // Share button
     const shareBtn = document.getElementById('btn-share-contribution');

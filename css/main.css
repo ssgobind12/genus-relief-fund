@@ -744,7 +744,10 @@ button, input, textarea, select {
 }
 
 .donation-form input[type="text"],
-.donation-form input[type="number"] {
+.donation-form input[type="number"],
+.donation-form input[type="tel"],
+.donation-form input[type="email"],
+.donation-form textarea {
   width: 100%;
   padding: var(--space-3) var(--space-4);
   background: var(--bg-input);
@@ -755,7 +758,8 @@ button, input, textarea, select {
   transition: all var(--transition-fast);
 }
 
-.donation-form input:focus {
+.donation-form input:focus,
+.donation-form textarea:focus {
   outline: none;
   border-color: var(--color-primary);
   background: var(--bg-surface);

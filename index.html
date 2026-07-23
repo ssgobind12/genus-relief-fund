@@ -469,7 +469,7 @@
           <label for="donor-mobile">Mobile Number <span class="required">*</span></label>
           <div class="input-wrap">
             <i data-lucide="phone"></i>
-            <input type="tel" id="donor-mobile" name="mobile" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required />
+            <input type="tel" id="donor-mobile" name="mobile" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required />
           </div>
         </div>
 
@@ -500,10 +500,10 @@
         </div>
 
         <div class="form-group">
-          <label for="donor-txn">Transaction ID / UTR Number <span class="required">*</span></label>
+          <label for="donor-txn">Transaction ID / UTR Number (last 4 digits) <span class="required">*</span></label>
           <div class="input-wrap">
             <i data-lucide="hash"></i>
-            <input type="text" id="donor-txn" name="transaction_id" placeholder="Enter your UTR / Transaction ID" required />
+            <input type="text" id="donor-txn" name="transaction_id" placeholder="Last 4 digits" maxlength="4" required />
           </div>
         </div>
 
@@ -624,7 +624,7 @@
       <div class="cert-modal-body" style="padding: 20px 0;">
         <p style="margin-bottom: 15px; color: #475569; font-size: 0.95rem;">Enter the mobile number you used for your donation to download your verified certificate.</p>
         <div class="form-group">
-          <input type="tel" id="cert-mobile" class="form-input" placeholder="Enter Mobile Number" pattern="[0-9]{10}">
+          <input type="tel" id="cert-mobile" class="form-input" placeholder="Enter Mobile Number" pattern="[0-9]{10}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         </div>
         <div id="cert-status-msg" style="margin: 10px 0; font-size: 0.9rem; font-weight: 500;"></div>
         <button class="btn btn-primary" id="btn-check-cert" style="width: 100%; margin-top: 10px;">

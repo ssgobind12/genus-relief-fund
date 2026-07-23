@@ -288,7 +288,7 @@ function setupDownloadQR() {
 
 async function loadSecureQR() {
   try {
-    const res = await fetch('./assets/qr-data.bin');
+    const res = await fetch('/qr-data.bin');
     const blob = await res.blob();
     const url = URL.createObjectURL(blob);
     

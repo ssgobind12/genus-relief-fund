@@ -23,6 +23,7 @@ async function initApp() {
   setupScrollToTop();
   setupCopyUPI();
   setupDownloadQR();
+  setupImpactCards();
 
   // Show demo banner if needed
   if (DEMO_MODE) {
@@ -275,6 +276,48 @@ function setupDownloadQR() {
       link.click();
     });
   }
+}
+
+// ==================== IMPACT CARDS ====================
+
+function setupImpactCards() {
+  const impactCards = document.querySelectorAll('.impact-card');
+  impactCards.forEach(card => {
+    card.style.cursor = 'pointer';
+    card.title = 'Click to donate this amount';
+    
+    card.addEventListener('click', () => {
+      const amountText = card.querySelector('.impact-amount')?.textContent || '';
+      const amount = parseInt(amountText.replace(/\D/g, ''));
+      
+      if (amount) {
+        const radio = document.querySelector(`input[name="amount"][value="${amount}"]`);
+        if (radio) {
+          radio.checked = true;
+          // Trigger change event for custom amount logic
+          radio.dispatchEvent(new Event('change'));
+        } else {
+          // If custom amount, select custom radio and set value
+          const customRadio = document.getElementById('amount-custom');
+          const customInput = document.getElementById('custom-amount-input');
+          if (customRadio && customInput) {
+            customRadio.checked = true;
+            customInput.value = amount;
+            customRadio.dispatchEvent(new Event('change'));
+          }
+        }
+      }
+      
+      // Scroll to donation section
+      const targetElement = document.getElementById('donation-section');
+      if (targetElement) {
+        const headerOffset = 80;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+    });
+  });
 }
 
 // ==================== REFRESH DATA ====================

@@ -27,7 +27,7 @@ export async function checkDonationStatus(mobile) {
   try {
     const { data, error } = await supabase
       .from('donations')
-      .select('status, donor_name, amount')
+      .select('is_verified, is_rejected, donor_name, amount')
       .eq('mobile', mobile)
       .order('created_at', { ascending: false })
       .limit(1)
@@ -37,7 +37,16 @@ export async function checkDonationStatus(mobile) {
       if (error.code === 'PGRST116') return null; // No rows found
       throw error;
     }
-    return data;
+    
+    let status = 'pending';
+    if (data.is_verified) status = 'verified';
+    else if (data.is_rejected) status = 'rejected';
+
+    return {
+      status,
+      donor_name: data.donor_name,
+      amount: data.amount
+    };
   } catch (error) {
     console.error('Error checking donation status:', error);
     return null;

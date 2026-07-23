@@ -34,13 +34,11 @@ export async function getDonationStats() {
       total_amount: total,
       today_amount: today,
       today_donors: verified.filter(d => new Date(d.created_at).toDateString() === new Date().toDateString()).length,
-      families_supported: Math.floor(total / 5000),
+      families_supported: Math.floor(total / 500),
     };
   }
   const { data } = await supabase.from('donation_stats').select('*').single();
-  const { data: settings } = await supabase.from('settings').select('value').eq('key', 'families_per_lakh').single();
-  const familiesPerLakh = settings ? parseInt(settings.value) : 8;
-  return { ...data, families_supported: Math.floor((data?.total_amount || 0) / 100000 * familiesPerLakh) };
+  return data || { total_donors: 0, total_amount: 0, today_amount: 0, families_supported: 0 };
 }
 
 export async function getRecentDonations(limit = 20) {
@@ -50,14 +48,14 @@ export async function getRecentDonations(limit = 20) {
       donor_name: d.is_anonymous ? 'Anonymous' : d.donor_name,
     }));
   }
-  const { data } = await supabase.from('recent_donations').select('*').limit(limit);
+  const { data } = await supabase.from('donations').select('*').eq('is_verified', true).eq('is_rejected', false).order('created_at', { ascending: false }).limit(limit);
   return data || [];
 }
 
 export async function getTargetAmount() {
   if (DEMO_MODE) return 500000;
-  const { data } = await supabase.from('settings').select('value').eq('key', 'target_amount').single();
-  return data ? parseInt(data.value) : 500000;
+  const { data } = await supabase.from('settings').select('target_amount').single();
+  return data ? parseInt(data.target_amount) : 500000;
 }
 
 export async function submitDonation(donationData) {
@@ -89,13 +87,12 @@ export async function getSettings() {
       target_amount: '500000',
       admin_password: 'genus2026',
       upi_id: 'ssgobind12@okaxis',
-      contact_name: 'Shubham Pratap Singh',
       contact_phone: '+91 9216013070',
       contact_email: 'shubham.singh@genus.in',
     };
   }
-  const { data } = await supabase.from('settings').select('*');
-  return data ? Object.fromEntries(data.map(s => [s.key, s.value])) : {};
+  const { data } = await supabase.from('settings').select('*').single();
+  return data || {};
 }
 
 export async function getGalleryImages() {

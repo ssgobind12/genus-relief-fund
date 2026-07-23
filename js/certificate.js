@@ -46,7 +46,7 @@ export async function generateCertificate(donorName, amount, date = new Date()) 
         resolve();
       };
       img.onerror = reject;
-      img.src = 'https://genuspower.com/wp-content/uploads/2023/07/Genus-Logo.png';
+      img.src = './assets/logo.svg';
     });
   } catch (e) {
     // Fallback if image fails to load

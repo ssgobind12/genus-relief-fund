@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 80">
+  <!-- Sun behind 'e' -->
+  <path fill="#FF6600" d="M 62,45 A 22,22 0 0,1 106,45 Z" />
+  
+  <!-- Rays -->
+  <g stroke="#FF6600" stroke-width="3" stroke-linecap="round">
+    <line x1="62" y1="24" x2="68" y2="28" />
+    <line x1="76" y1="16" x2="79" y2="22" />
+    <line x1="92" y1="16" x2="89" y2="22" />
+    <line x1="106" y1="24" x2="100" y2="28" />
+  </g>
+  
+  <!-- Text -->
+  <text x="10" y="55" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="54" fill="#004B9B" letter-spacing="-2">Genus</text>
+  
+  <!-- Tagline -->
+  <text x="12" y="72" font-family="Arial, Helvetica, sans-serif" font-style="italic" font-weight="bold" font-size="14" fill="#004B9B" letter-spacing="1">energizing lives</text>
+</svg>

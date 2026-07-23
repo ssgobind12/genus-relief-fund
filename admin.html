@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Genus Flood Relief Drive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/variables.css">
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+
+    <!-- Login Screen -->
+    <div id="admin-login" class="login-container">
+        <div class="login-card">
+            <h2>Admin Dashboard</h2>
+            <p>Genus Flood Relief Drive</p>
+            <form id="login-form">
+                <input type="password" id="admin-password" placeholder="Enter Admin Password" required>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <div id="login-error" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="admin-dashboard" class="dashboard-container" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-logo">
+                <h2>Genus Relief</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-target="dashboard-section">Dashboard</button>
+                <button class="nav-item" data-target="donations-section">Donations</button>
+                <button class="nav-item" data-target="gallery-section">Gallery</button>
+                <button class="nav-item" data-target="settings-section">Settings</button>
+                <button class="nav-item logout-btn" id="logout-btn">Logout</button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="header-actions">
+                    <input type="text" id="global-search" placeholder="Search...">
+                    <button class="icon-btn">🔔</button>
+                    <div class="admin-avatar">A</div>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Amount</h3>
+                        <p class="stat-value" id="stat-total-amount">₹0</p>
+                        <span class="stat-icon">💰</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Today's Collection</h3>
+                        <p class="stat-value" id="stat-today">₹0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Weekly Collection</h3>
+                        <p class="stat-value" id="stat-weekly">₹0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Monthly Collection</h3>
+                        <p class="stat-value" id="stat-monthly">₹0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Donors</h3>
+                        <p class="stat-value" id="stat-donors">0</p>
+                        <span class="stat-icon">👥</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Donation</h3>
+                        <p class="stat-value" id="stat-average">₹0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pending Verifications</h3>
+                        <p class="stat-value" id="stat-pending">0</p>
+                        <span class="stat-icon">⏳</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Verified Donations</h3>
+                        <p class="stat-value" id="stat-verified">0</p>
+                        <span class="stat-icon">✅</span>
+                    </div>
+                </div>
+                
+                <div class="charts-row">
+                    <div class="chart-container chart-daily">
+                        <h3>Daily Donations</h3>
+                        <div class="chart-placeholder">[ Bar Chart Placeholder ]</div>
+                    </div>
+                    <div class="chart-container chart-distribution">
+                        <h3>Donation Distribution</h3>
+                        <div class="chart-placeholder">[ Pie Chart Placeholder ]</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Donations Section -->
+            <section id="donations-section" class="content-section">
+                <div class="actions-bar">
+                    <input type="text" id="donation-search" placeholder="Search Name/Txn ID...">
+                    <input type="date" id="filter-date-from">
+                    <input type="date" id="filter-date-to">
+                    <input type="number" id="filter-amount-min" placeholder="Min ₹">
+                    <input type="number" id="filter-amount-max" placeholder="Max ₹">
+                    <select id="filter-status">
+                        <option value="all">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="verified">Verified</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                    <div class="export-btns">
+                        <button id="export-csv">CSV</button>
+                        <button id="export-excel">Excel</button>
+                        <button id="export-pdf">PDF</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="donations-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Mobile</th>
+                                <th>Amount</th>
+                                <th>Transaction ID</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donations-tbody">
+                            <!-- Rows populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="pagination">
+                    <button id="prev-page">Previous</button>
+                    <span id="page-info">Page 1</span>
+                    <button id="next-page">Next</button>
+                </div>
+            </section>
+
+            <!-- Gallery Section -->
+            <section id="gallery-section" class="content-section">
+                <div class="upload-area" id="gallery-upload">
+                    <p>Drag & Drop images here or click to upload</p>
+                    <input type="file" id="gallery-file-input" hidden accept="image/*">
+                </div>
+                <div class="gallery-grid" id="gallery-grid">
+                    <!-- Images populated by JS -->
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings-section" class="content-section">
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label>Target Amount (₹)</label>
+                        <input type="number" id="settings-target">
+                    </div>
+                    <div class="form-group">
+                        <label>Change Password</label>
+                        <input type="password" id="settings-password">
+                    </div>
+                    <div class="form-group">
+                        <label>UPI ID</label>
+                        <input type="text" id="settings-upi">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Phone</label>
+                        <input type="tel" id="settings-phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Email</label>
+                        <input type="email" id="settings-email">
+                    </div>
+                    <button id="save-settings-btn" class="btn btn-primary">Save Settings</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Donation Detail Modal -->
+    <div id="detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Donation Details</h2>
+            <div id="modal-details-content">
+                <!-- Populated by JS -->
+            </div>
+            <div class="modal-actions">
+                <button id="modal-verify-btn" class="btn btn-success">Verify</button>
+                <button id="modal-reject-btn" class="btn btn-danger">Reject</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <script type="module" src="./js/admin.js"></script>
+</body>
+</html>

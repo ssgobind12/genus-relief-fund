@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Support flood-affected families in Assam. Donate to the Genus Power Infrastructure Ltd. Flood Relief Drive and help rebuild lives with food, water, medicines, and essential supplies." />
+  <meta name="keywords" content="flood relief, donate, Assam floods, Genus Power, Sivsagar, charity, UPI donation, relief drive" />
+  <meta name="author" content="Genus Power Infrastructure Ltd." />
+  <meta property="og:title" content="Genus Flood Relief Drive – Together We Can Rebuild Lives" />
+  <meta property="og:description" content="Support flood-affected families in Assam. Every contribution helps provide food, water, medicines, and hope." />
+  <meta property="og:image" content="./assets/poster.jpg" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Genus Flood Relief Drive | Donate Now</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./css/variables.css" />
+  <link rel="stylesheet" href="./css/main.css" />
+</head>
+<body>
+
+  <!-- ==================== LOADING SCREEN ==================== -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader-content">
+      <div class="loader-logo">
+        <span class="logo-genus">Genus</span>
+        <span class="logo-tagline">energizing lives</span>
+      </div>
+      <div class="loader-spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+      </div>
+      <p class="loader-text">Loading Relief Drive...</p>
+    </div>
+  </div>
+
+  <!-- ==================== DEMO MODE BANNER ==================== -->
+  <div id="demo-banner" class="demo-banner" style="display: none;">
+    <i data-lucide="info" class="demo-icon"></i>
+    <span>Demo Mode – Connect Supabase for live data</span>
+    <button id="demo-banner-close" class="demo-close">&times;</button>
+  </div>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav id="main-nav" class="main-nav">
+    <div class="container nav-container">
+      <a href="#" class="nav-logo">
+        <span class="logo-genus">Genus</span>
+        <span class="logo-tagline">energizing lives</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#hero" class="nav-link active">Home</a></li>
+        <li><a href="#counter-section" class="nav-link">Impact</a></li>
+        <li><a href="#donation-section" class="nav-link">Donate</a></li>
+        <li><a href="#recent-section" class="nav-link">Donors</a></li>
+        <li><a href="#gallery-section" class="nav-link">Gallery</a></li>
+        <li><a href="#contact-section" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="dark-mode-toggle" class="dark-mode-toggle" title="Toggle Dark Mode" aria-label="Toggle dark mode">
+          <i data-lucide="moon" class="icon-moon"></i>
+          <i data-lucide="sun" class="icon-sun" style="display:none;"></i>
+        </button>
+        <a href="#donation-section" class="nav-donate-btn">Donate Now</a>
+      </div>
+
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+      <ul class="mobile-nav-links">
+        <li><a href="#hero" class="mobile-link">Home</a></li>
+        <li><a href="#counter-section" class="mobile-link">Impact</a></li>
+        <li><a href="#donation-section" class="mobile-link">Donate</a></li>
+        <li><a href="#recent-section" class="mobile-link">Donors</a></li>
+        <li><a href="#gallery-section" class="mobile-link">Gallery</a></li>
+        <li><a href="#contact-section" class="mobile-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section id="hero" class="hero-section">
+    <div class="hero-bg">
+      <img src="./assets/poster.jpg" alt="Flood Relief Poster" class="hero-bg-img" />
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="hero-particles" id="hero-particles"></div>
+
+    <div class="container hero-content">
+      <div class="hero-badge animate-on-scroll">
+        <i data-lucide="heart-handshake"></i>
+        <span>Genus Power Infrastructure Ltd. | Sivsagar, Assam</span>
+      </div>
+
+      <h1 class="hero-title animate-on-scroll">
+        Flood Relief<br /><span class="text-gradient">Drive</span>
+      </h1>
+
+      <p class="hero-subtitle animate-on-scroll">Together We Can Rebuild Lives</p>
+
+      <p class="hero-description animate-on-scroll">
+        Recent floods have affected thousands of families across Assam.
+        Every contribution—big or small—helps provide food, drinking water,
+        medicines, clothes, and hope. <strong>Together, we can rebuild lives.</strong>
+      </p>
+
+      <div class="hero-buttons animate-on-scroll">
+        <a href="#donation-section" id="donate-now-btn" class="btn btn-primary btn-lg">
+          <i data-lucide="heart"></i>
+          Donate Now
+        </a>
+        <a href="#recent-section" id="view-donations-btn" class="btn btn-secondary btn-lg">
+          <i data-lucide="bar-chart-3"></i>
+          View Live Donations
+        </a>
+      </div>
+
+      <div class="hero-stats animate-on-scroll">
+        <div class="hero-stat">
+          <span class="hero-stat-value" id="hero-donors">0</span>
+          <span class="hero-stat-label">Donors</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-value" id="hero-amount">₹0</span>
+          <span class="hero-stat-label">Raised</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-value" id="hero-families">0</span>
+          <span class="hero-stat-label">Families Helped</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator">
+      <i data-lucide="chevrons-down"></i>
+    </div>
+  </section>
+
+  <!-- ==================== LIVE DONATION COUNTER ==================== -->
+  <section id="counter-section" class="counter-section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-tag">Live Impact</span>
+        <h2 class="section-title">Making A <span class="text-gradient">Difference</span></h2>
+        <p class="section-subtitle">Real-time statistics of our collective impact</p>
+      </div>
+
+      <div class="counter-grid">
+        <div class="counter-card animate-on-scroll" data-delay="0">
+          <div class="counter-icon-wrap bg-blue">
+            <i data-lucide="users"></i>
+          </div>
+          <div class="counter-value" id="stat-donors" data-target="0">0</div>
+          <div class="counter-label">Total Donors</div>
+        </div>
+
+        <div class="counter-card animate-on-scroll" data-delay="100">
+          <div class="counter-icon-wrap bg-green">
+            <i data-lucide="indian-rupee"></i>
+          </div>
+          <div class="counter-value" id="stat-amount" data-target="0" data-prefix="₹">₹0</div>
+          <div class="counter-label">Total Amount Raised</div>
+        </div>
+
+        <div class="counter-card animate-on-scroll" data-delay="200">
+          <div class="counter-icon-wrap bg-orange">
+            <i data-lucide="calendar-check"></i>
+          </div>
+          <div class="counter-value" id="stat-today" data-target="0" data-prefix="₹">₹0</div>
+          <div class="counter-label">Today's Donations</div>
+        </div>
+
+        <div class="counter-card animate-on-scroll" data-delay="300">
+          <div class="counter-icon-wrap bg-red">
+            <i data-lucide="heart"></i>
+          </div>
+          <div class="counter-value" id="stat-families" data-target="0" data-suffix=" Families">0</div>
+          <div class="counter-label">Families Supported</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROGRESS BAR ==================== -->
+  <section id="progress-section" class="progress-section">
+    <div class="container">
+      <div class="progress-card animate-on-scroll">
+        <div class="progress-header">
+          <div class="progress-raised">
+            <span class="progress-label">Raised</span>
+            <span class="progress-amount" id="progress-raised">₹0</span>
+          </div>
+          <div class="progress-target">
+            <span class="progress-label">Goal</span>
+            <span class="progress-amount" id="progress-target">₹5,00,000</span>
+          </div>
+        </div>
+
+        <div class="progress-container">
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill" style="width: 0%;">
+              <div class="progress-shimmer"></div>
+            </div>
+          </div>
+          <div class="progress-percent" id="progress-percent">0%</div>
+        </div>
+
+        <p class="progress-cta">Every rupee brings us closer to our goal. <strong>Donate now!</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DONATION SECTION ==================== -->
+  <section id="donation-section" class="donation-section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-tag">Make A Donation</span>
+        <h2 class="section-title">Scan & <span class="text-gradient">Donate</span></h2>
+        <p class="section-subtitle">Use any UPI app to make your contribution</p>
+      </div>
+
+      <div class="donation-grid">
+        <!-- QR Code Side -->
+        <div class="qr-container animate-on-scroll">
+          <div class="qr-card">
+            <div class="qr-badge">
+              <i data-lucide="scan-line"></i>
+              <span>Scan to Donate</span>
+            </div>
+            <div class="qr-image-wrap">
+              <img src="./assets/qr-code.jpg" alt="UPI QR Code for Donation" class="qr-image" id="qr-image" />
+            </div>
+            <div class="upi-id-wrap">
+              <span class="upi-label">UPI ID</span>
+              <div class="upi-id-row">
+                <code class="upi-id" id="upi-id">ssgobind12@okaxis</code>
+                <button class="copy-btn" id="copy-upi-btn" title="Copy UPI ID">
+                  <i data-lucide="copy"></i>
+                </button>
+              </div>
+            </div>
+            <button class="btn btn-download-qr" id="download-qr-btn">
+              <i data-lucide="download"></i>
+              Download QR Code
+            </button>
+          </div>
+        </div>
+
+        <!-- Donation Info Side -->
+        <div class="donation-info animate-on-scroll">
+          <div class="donation-steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>Scan QR Code</h4>
+                <p>Open any UPI app (Google Pay, PhonePe, Paytm) and scan the QR code</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>Make Payment</h4>
+                <p>Enter the amount you wish to donate and complete the payment</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>Confirm Donation</h4>
+                <p>Click the button below and fill in your details to get a thank you certificate</p>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-donated btn-lg" id="btn-donated">
+            <i data-lucide="check-circle"></i>
+            I Have Donated
+          </button>
+
+          <p class="donation-note">
+            <i data-lucide="shield-check"></i>
+            Your information is safe. We verify each donation for transparency.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DONATION IMPACT ==================== -->
+  <section id="impact-section" class="impact-section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-tag">Your Impact</span>
+        <h2 class="section-title">How Your <span class="text-gradient">Donation Helps</span></h2>
+        <p class="section-subtitle">See the real difference your contribution makes</p>
+      </div>
+
+      <div class="impact-grid">
+        <div class="impact-card animate-on-scroll" data-delay="0">
+          <div class="impact-icon">💧</div>
+          <div class="impact-amount">₹200</div>
+          <div class="impact-description">Provides safe drinking water for a family</div>
+        </div>
+
+        <div class="impact-card animate-on-scroll" data-delay="100">
+          <div class="impact-icon">🍚</div>
+          <div class="impact-amount">₹500</div>
+          <div class="impact-description">Provides food supplies for one family</div>
+        </div>
+
+        <div class="impact-card animate-on-scroll" data-delay="200">
+          <div class="impact-icon">💊</div>
+          <div class="impact-amount">₹1,000</div>
+          <div class="impact-description">Blankets, clothes, and essential medicines</div>
+        </div>
+
+        <div class="impact-card animate-on-scroll" data-delay="300">
+          <div class="impact-icon">🏠</div>
+          <div class="impact-amount">₹5,000</div>
+          <div class="impact-description">Supports one family completely for a week</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RECENT DONATIONS ==================== -->
+  <section id="recent-section" class="recent-section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-tag">Live Feed</span>
+        <h2 class="section-title">Recent <span class="text-gradient">Donations</span></h2>
+        <p class="section-subtitle">See the generosity of our community in real-time</p>
+      </div>
+
+      <div class="donations-ticker-wrap">
+        <div class="ticker-fade-top"></div>
+        <div class="donations-ticker" id="donations-ticker">
+          <!-- Donation items injected by JS -->
+          <div class="ticker-placeholder">
+            <div class="spinner-small"></div>
+            <p>Loading donations...</p>
+          </div>
+        </div>
+        <div class="ticker-fade-bottom"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GALLERY ==================== -->
+  <section id="gallery-section" class="gallery-section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-tag">On Ground</span>
+        <h2 class="section-title">Relief <span class="text-gradient">Gallery</span></h2>
+        <p class="section-subtitle">Photos from the flood-affected areas and our relief activities</p>
+      </div>
+
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- Gallery items injected by JS, with poster as default -->
+        <div class="gallery-item animate-on-scroll">
+          <img src="./assets/poster.jpg" alt="Genus Flood Relief Drive Poster" loading="lazy" />
+          <div class="gallery-caption">Genus Flood Relief Drive – Official Poster</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section id="contact-section" class="contact-section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-tag">Get In Touch</span>
+        <h2 class="section-title">Contact <span class="text-gradient">Us</span></h2>
+        <p class="section-subtitle">Reach out for queries, volunteering, or bulk donations</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card animate-on-scroll">
+          <div class="contact-card-header">
+            <i data-lucide="building-2"></i>
+            <h3>Organization</h3>
+          </div>
+          <p class="contact-org-name">Genus Power Infrastructure Ltd.</p>
+          <p class="contact-org-location">Sivsagar, Assam</p>
+        </div>
+
+        <div class="contact-card animate-on-scroll">
+          <div class="contact-card-header">
+            <i data-lucide="user-circle"></i>
+            <h3>Contact Person</h3>
+          </div>
+          <p class="contact-person-name">Shubham Pratap Singh</p>
+          <div class="contact-links">
+            <a href="tel:+919216013070" class="contact-link">
+              <i data-lucide="phone"></i>
+              +91 9216013070
+            </a>
+            <a href="mailto:shubham.singh@genus.in" class="contact-link">
+              <i data-lucide="mail"></i>
+              shubham.singh@genus.in
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-card animate-on-scroll">
+          <div class="contact-card-header">
+            <i data-lucide="share-2"></i>
+            <h3>Spread The Word</h3>
+          </div>
+          <p>Help us reach more people by sharing this drive</p>
+          <div class="contact-social">
+            <button class="social-btn whatsapp" id="share-whatsapp" title="Share on WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </button>
+            <button class="social-btn twitter" id="share-twitter" title="Share on X/Twitter">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </button>
+            <button class="social-btn facebook" id="share-facebook" title="Share on Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </button>
+            <button class="social-btn linkedin" id="share-linkedin" title="Share on LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-genus">Genus</span>
+          <span class="logo-tagline">energizing lives</span>
+        </div>
+
+        <p class="footer-quote">"Every Rupee You Give Rebuilds Hope."</p>
+
+        <div class="footer-links">
+          <a href="#hero">Home</a>
+          <a href="#donation-section">Donate</a>
+          <a href="#contact-section">Contact</a>
+          <a href="./admin.html">Admin</a>
+        </div>
+
+        <p class="footer-copyright">
+          &copy; 2026 Genus Power Infrastructure Ltd. | Flood Relief Drive
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== SCROLL TO TOP ==================== -->
+  <button id="scroll-top-btn" class="scroll-top-btn" title="Back to top" aria-label="Scroll to top">
+    <i data-lucide="chevron-up"></i>
+  </button>
+
+  <!-- ==================== DONATION MODAL ==================== -->
+  <div id="donation-modal" class="donation-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <i data-lucide="heart"></i>
+          Confirm Your Donation
+        </h3>
+        <button class="modal-close" id="modal-close" aria-label="Close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <form class="donation-form" id="donation-form">
+        <div class="form-group">
+          <label for="donor-name">Full Name <span class="required">*</span></label>
+          <div class="input-wrap">
+            <i data-lucide="user"></i>
+            <input type="text" id="donor-name" name="donor_name" placeholder="Enter your full name" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="donor-mobile">Mobile Number <span class="required">*</span></label>
+          <div class="input-wrap">
+            <i data-lucide="phone"></i>
+            <input type="tel" id="donor-mobile" name="mobile" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="donor-email">Email <span class="optional">(optional)</span></label>
+          <div class="input-wrap">
+            <i data-lucide="mail"></i>
+            <input type="email" id="donor-email" name="email" placeholder="your@email.com" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="donor-amount">Amount Donated <span class="required">*</span></label>
+            <div class="input-wrap">
+              <i data-lucide="indian-rupee"></i>
+              <input type="number" id="donor-amount" name="amount" placeholder="e.g. 500" min="1" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="donor-city">City <span class="optional">(optional)</span></label>
+            <div class="input-wrap">
+              <i data-lucide="map-pin"></i>
+              <input type="text" id="donor-city" name="city" placeholder="e.g. Sivasagar" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="donor-txn">Transaction ID / UTR Number <span class="required">*</span></label>
+          <div class="input-wrap">
+            <i data-lucide="hash"></i>
+            <input type="text" id="donor-txn" name="transaction_id" placeholder="Enter your UTR / Transaction ID" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="donor-screenshot">Payment Screenshot <span class="optional">(optional)</span></label>
+          <div class="file-upload" id="file-upload">
+            <input type="file" id="donor-screenshot" name="screenshot" accept="image/*" />
+            <div class="file-upload-content" id="file-upload-content">
+              <i data-lucide="upload-cloud"></i>
+              <p>Drag & drop or <span class="file-upload-link">click to upload</span></p>
+              <span class="file-upload-hint">PNG, JPG up to 5MB</span>
+            </div>
+            <div class="file-preview" id="file-preview" style="display:none;">
+              <img id="file-preview-img" alt="Preview" />
+              <button type="button" class="file-remove" id="file-remove">
+                <i data-lucide="trash-2"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="donor-message">Message <span class="optional">(optional)</span></label>
+          <textarea id="donor-message" name="message" placeholder="Leave a message of hope..." rows="3"></textarea>
+        </div>
+
+        <div class="form-check">
+          <input type="checkbox" id="donor-anonymous" name="is_anonymous" />
+          <label for="donor-anonymous">Donate anonymously (your name won't be shown publicly)</label>
+        </div>
+
+        <button type="submit" class="btn btn-submit btn-lg" id="btn-submit">
+          <span class="btn-text">
+            <i data-lucide="check-circle"></i>
+            Confirm Donation
+          </span>
+          <span class="btn-loading" style="display:none;">
+            <div class="spinner-small"></div>
+            Submitting...
+          </span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== SUCCESS OVERLAY ==================== -->
+  <div id="success-overlay" class="success-overlay">
+    <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+    <div class="success-content">
+      <div class="success-checkmark">
+        <svg viewBox="0 0 52 52">
+          <circle cx="26" cy="26" r="25" fill="none" />
+          <path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+        </svg>
+      </div>
+
+      <h2 class="success-title">❤️ Thank You!</h2>
+
+      <div class="thank-you-card">
+        <p>Dear <strong class="donor-highlight" id="success-name">Donor</strong>,</p>
+        <p>Your generosity has brought hope to families affected by the floods.</p>
+        <p>Thank you for contributing <strong class="amount-highlight" id="success-amount">₹0</strong> towards the <strong>Genus Power Infrastructure Ltd. Flood Relief Drive</strong>.</p>
+
+        <p class="impact-intro">Your kindness will help provide:</p>
+        <ul class="impact-list">
+          <li><i data-lucide="check"></i> Food</li>
+          <li><i data-lucide="check"></i> Drinking Water</li>
+          <li><i data-lucide="check"></i> Medicines</li>
+          <li><i data-lucide="check"></i> Clothes</li>
+          <li><i data-lucide="check"></i> Essential Relief Materials</li>
+        </ul>
+
+        <div class="hope-message">
+          <p>Because of people like you,</p>
+          <p><strong>Hope survives.</strong></p>
+          <p><strong>Communities rebuild.</strong></p>
+          <p><strong>Lives recover.</strong></p>
+        </div>
+
+        <p class="together-msg">Together We Can Make A Difference.</p>
+
+        <div class="signature">
+          <p>With gratitude,</p>
+          <p><strong>Genus Power Infrastructure Ltd.</strong></p>
+          <p>Sivsagar, Assam</p>
+        </div>
+      </div>
+
+      <div class="success-buttons">
+        <button class="btn btn-primary" id="btn-download-cert">
+          <i data-lucide="download"></i>
+          Download Thank You Certificate
+        </button>
+        <button class="btn btn-secondary" id="btn-share-contribution">
+          <i data-lucide="share-2"></i>
+          Share Your Contribution
+        </button>
+        <button class="btn btn-outline" id="btn-back-home">
+          <i data-lucide="home"></i>
+          Back to Home
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SHARE MODAL ==================== -->
+  <div id="share-modal" class="share-modal" style="display:none;">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content share-modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <i data-lucide="share-2"></i>
+          Share Your Contribution
+        </h3>
+        <button class="modal-close" id="share-modal-close" aria-label="Close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="share-buttons">
+        <button class="share-option whatsapp" id="share-wa">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </button>
+        <button class="share-option twitter" id="share-tw">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </button>
+        <button class="share-option facebook" id="share-fb">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Facebook
+        </button>
+        <button class="share-option linkedin" id="share-li">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </button>
+        <button class="share-option copy-link" id="share-copy">
+          <i data-lucide="link"></i>
+          Copy Link
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- App JS (Entry Point) -->
+  <script type="module" src="./js/app.js"></script>
+
+</body>
+</html>

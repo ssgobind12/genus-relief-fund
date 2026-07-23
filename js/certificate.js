@@ -70,12 +70,12 @@ export async function generateCertificate(donorName, amount, date = new Date()) 
   // ===== Certificate Title =====
   ctx.fillStyle = '#2E7D32';
   ctx.font = 'bold 48px "Georgia", serif';
-  ctx.fillText('Certificate of Appreciation', canvas.width / 2, 210);
+  ctx.fillText('Certificate of Humanitarian Support', canvas.width / 2, 210);
 
   // Decorative line under title
   ctx.beginPath();
-  ctx.moveTo(350, 225);
-  ctx.lineTo(773, 225);
+  ctx.moveTo(250, 225);
+  ctx.lineTo(873, 225);
   ctx.strokeStyle = '#2E7D32';
   ctx.lineWidth = 2;
   ctx.stroke();

@@ -284,20 +284,28 @@ function setupImpactCards() {
   const impactCards = document.querySelectorAll('.impact-card');
   impactCards.forEach(card => {
     card.style.cursor = 'pointer';
-    card.title = 'Click to donate this amount';
+    card.title = 'Click to donate this amount via UPI';
     
     card.addEventListener('click', () => {
       const amountText = card.querySelector('.impact-amount')?.textContent || '';
       const amount = parseInt(amountText.replace(/\D/g, ''));
       
       if (amount) {
+        // 1. Open UPI Intent with pre-filled amount and ID
+        const upiId = 'ssgobind12@okaxis';
+        const payeeName = 'Genus Relief Fund';
+        const upiLink = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&cu=INR&am=${amount}`;
+        
+        // Use a hidden iframe or direct location change to trigger app
+        // Direct location change works best for mobile deep links
+        window.location.href = upiLink;
+
+        // 2. Also select the radio button in our form so it's ready when they return
         const radio = document.querySelector(`input[name="amount"][value="${amount}"]`);
         if (radio) {
           radio.checked = true;
-          // Trigger change event for custom amount logic
           radio.dispatchEvent(new Event('change'));
         } else {
-          // If custom amount, select custom radio and set value
           const customRadio = document.getElementById('amount-custom');
           const customInput = document.getElementById('custom-amount-input');
           if (customRadio && customInput) {
@@ -308,13 +316,16 @@ function setupImpactCards() {
         }
       }
       
-      // Scroll to donation section
+      // 3. Scroll to donation section so they can fill their details after paying
       const targetElement = document.getElementById('donation-section');
       if (targetElement) {
         const headerOffset = 80;
         const elementPosition = targetElement.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.scrollY - headerOffset;
-        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        // Small delay to allow UPI intent to fire first
+        setTimeout(() => {
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }, 300);
       }
     });
   });

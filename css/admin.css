@@ -7,10 +7,18 @@
     padding: 0;
 }
 
+html {
+    zoom: 0.8;
+}
+
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f4f7f6;
-    color: #333;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #F8FAFC;
+    color: #0F172A;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
 }
 
 h1, h2, h3 {

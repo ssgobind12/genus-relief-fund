@@ -170,3 +170,18 @@ export async function updateDonation(id, data) {
   const { error } = await supabase.from('donations').update(data).eq('id', id);
   return !error;
 }
+
+export async function addVerifiedDonation(donationData) {
+  if (DEMO_MODE) {
+    // In demo mode we won't add to the hardcoded array from here easily without exporting it, but returning success is enough.
+    return { success: true, id: 'demo-' + Date.now() };
+  }
+  const fullData = {
+    ...donationData,
+    is_verified: true,
+    verified_at: new Date().toISOString()
+  };
+  const { data, error } = await supabase.from('donations').insert([fullData]).select().single();
+  if (error) throw error;
+  return { success: true, id: data.id };
+}

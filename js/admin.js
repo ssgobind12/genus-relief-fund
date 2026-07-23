@@ -1,4 +1,4 @@
-import { supabase, DEMO_MODE, getAllDonations, verifyDonation as sbVerify, rejectDonation as sbReject, deleteDonation as sbDelete, updateDonation as sbUpdate, getDonationStats } from './supabase.js';
+import { supabase, DEMO_MODE, getAllDonations, verifyDonation as sbVerify, rejectDonation as sbReject, deleteDonation as sbDelete, updateDonation as sbUpdate, getDonationStats, addVerifiedDonation } from './supabase.js';
 
 // Demo Data (Fallback)
 let DEMO_DONATIONS = [
@@ -286,6 +286,45 @@ window.openEditModal = (id) => {
     
     document.getElementById('edit-modal').style.display = 'flex';
 };
+
+document.getElementById('btn-add-donation')?.addEventListener('click', () => {
+    document.getElementById('add-donation-form').reset();
+    document.getElementById('add-modal').style.display = 'flex';
+});
+
+document.getElementById('add-donation-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.innerText = 'Adding...';
+
+    const data = {
+        donor_name: document.getElementById('add-name').value,
+        mobile: document.getElementById('add-mobile').value,
+        amount: parseFloat(document.getElementById('add-amount').value),
+        city: document.getElementById('add-city').value || null,
+        transaction_id: document.getElementById('add-txn').value || 'OFFLINE-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+    };
+    
+    try {
+        if (DEMO_MODE) {
+            const newId = 'demo-' + Date.now();
+            DEMO_DONATIONS.unshift({ ...data, id: newId, is_verified: true, is_rejected: false, created_at: new Date().toISOString() });
+        } else {
+            await addVerifiedDonation(data);
+        }
+        showToast('Donation added successfully');
+        closeModals();
+        loadDonations(1);
+        loadDashboard();
+    } catch (err) {
+        console.error(err);
+        showToast('Error adding donation: ' + err.message, 'error');
+    } finally {
+        btn.disabled = false;
+        btn.innerText = 'Add Donation';
+    }
+});
 
 document.getElementById('edit-donation-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();

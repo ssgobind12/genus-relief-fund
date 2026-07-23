@@ -109,6 +109,7 @@
             <!-- Donations Section -->
             <section id="donations-section" class="content-section">
                 <div class="actions-bar">
+                    <button id="btn-add-donation" class="btn btn-success" style="margin-right: 10px;">+ Add Donation</button>
                     <input type="text" id="donation-search" placeholder="Search Name/Txn ID...">
                     <input type="date" id="filter-date-from">
                     <input type="date" id="filter-date-to">
@@ -235,6 +236,39 @@
                 </div>
                 <div class="modal-actions" style="margin-top: 20px;">
                     <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Add Donation Modal -->
+    <div id="add-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add Past/Offline Donation</h2>
+            <form id="add-donation-form">
+                <div class="form-group">
+                    <label>Donor Name *</label>
+                    <input type="text" id="add-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number *</label>
+                    <input type="text" id="add-mobile" required>
+                </div>
+                <div class="form-group">
+                    <label>Amount (₹) *</label>
+                    <input type="number" id="add-amount" required>
+                </div>
+                <div class="form-group">
+                    <label>City (Optional)</label>
+                    <input type="text" id="add-city">
+                </div>
+                <div class="form-group">
+                    <label>Transaction ID / Reference (Optional)</label>
+                    <input type="text" id="add-txn" placeholder="Leave blank to auto-generate">
+                </div>
+                <div class="modal-actions" style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-success">Add Donation</button>
                 </div>
             </form>
         </div>

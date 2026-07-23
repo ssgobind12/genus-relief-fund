@@ -12,6 +12,7 @@ import { initShare } from './share.js';
 import { initGallery } from './gallery.js';
 import { downloadCertificate } from './certificate.js';
 import { initCertificateCheck } from './certificate-check.js';
+import { initSecurity } from './security.js';
 
 document.addEventListener('DOMContentLoaded', initApp);
 
@@ -25,6 +26,9 @@ async function initApp() {
   setupCopyUPI();
   setupDownloadQR();
   setupImpactCards();
+  
+  // Security measures
+  initSecurity();
 
   // Show demo banner if needed
   if (DEMO_MODE) {

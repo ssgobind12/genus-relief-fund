@@ -25,13 +25,4 @@ export function initSecurity() {
       e.preventDefault();
     }
   });
-
-  // Anti-debugging trap (freezes DevTools if opened)
-  setInterval(() => {
-    (function () {
-      return false;
-    }
-      ['constructor']('debugger')
-      ['call']());
-  }, 2000);
 }

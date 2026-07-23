@@ -27,6 +27,16 @@ export function getInitials(name) {
   return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
 }
 
+export function maskName(name) {
+  if (!name || name === 'Anonymous') return 'Anonymous';
+  if (name.includes('*')) return name; // Already masked
+  
+  return name.trim().split(' ').map(part => {
+    if (part.length <= 1) return part;
+    return part.charAt(0) + '*'.repeat(Math.min(5, Math.max(3, part.length - 1)));
+  }).join(' ');
+}
+
 export function getAvatarColor(name) {
   if (!name || name === 'Anonymous') return '#6b7280';
   let hash = 0;
@@ -49,7 +59,7 @@ export function createDonationItem(donation) {
     </div>
     <div class="donation-details">
       <div class="donation-header">
-        <span class="donor-name">${donation.donor_name}</span>
+        <span class="donor-name">${maskName(donation.donor_name)}</span>
         <span class="donation-amount">₹${donation.amount.toLocaleString('en-IN')}</span>
       </div>
       <div class="donation-meta">

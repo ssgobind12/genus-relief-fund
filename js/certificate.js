@@ -32,35 +32,38 @@ export async function generateCertificate(donorName, amount, date = new Date()) 
   drawCornerDecoration(ctx, 15, canvas.height - 15, 3);
   drawCornerDecoration(ctx, canvas.width - 15, canvas.height - 15, 4);
 
-  // ===== Logo =====
+  // ===== Header Text =====
+  ctx.fillStyle = '#004B9B';
+  ctx.font = 'bold 36px "Arial", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Genus Power Infrastructure Limited', canvas.width / 2, 85);
+
+  // Header Subtext
+  ctx.fillStyle = '#555';
+  ctx.font = '16px "Arial", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Sivsagar, Assam | Flood Relief Drive', canvas.width / 2, 115);
+
+  // ===== Logo (Left Side) =====
   try {
     await new Promise((resolve, reject) => {
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.onload = () => {
         // Logo dimensions
-        const logoWidth = 200;
+        const logoWidth = 180;
         const logoHeight = (img.height / img.width) * logoWidth;
-        const x = (canvas.width - logoWidth) / 2;
-        ctx.drawImage(img, x, 45, logoWidth, logoHeight);
+        const x = 60; // Padding from left
+        const y = 45; // Align near top
+        ctx.drawImage(img, x, y, logoWidth, logoHeight);
         resolve();
       };
       img.onerror = reject;
       img.src = './assets/logo.svg';
     });
   } catch (e) {
-    // Fallback if image fails to load
-    ctx.fillStyle = '#004B9B';
-    ctx.font = 'bold 36px "Arial", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('GENUS', canvas.width / 2, 90);
+    console.error("Could not load logo for certificate", e);
   }
-
-  // Header Subtext
-  ctx.fillStyle = '#555';
-  ctx.font = '16px "Arial", sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('Sivsagar, Assam | Flood Relief Drive', canvas.width / 2, 130);
 
   // ===== Certificate Title =====
   ctx.fillStyle = '#2E7D32';

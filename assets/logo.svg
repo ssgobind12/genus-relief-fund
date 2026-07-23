@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 80">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 80" width="250" height="80">
   <!-- Sun behind 'e' -->
   <path fill="#FF6600" d="M 62,45 A 22,22 0 0,1 106,45 Z" />
   

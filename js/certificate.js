@@ -3,7 +3,7 @@
  * Generates a beautiful thank-you certificate as a downloadable PNG.
  */
 
-export function generateCertificate(donorName, amount, date = new Date()) {
+export async function generateCertificate(donorName, amount, date = new Date()) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
@@ -32,20 +32,35 @@ export function generateCertificate(donorName, amount, date = new Date()) {
   drawCornerDecoration(ctx, 15, canvas.height - 15, 3);
   drawCornerDecoration(ctx, canvas.width - 15, canvas.height - 15, 4);
 
-  // ===== Header Banner =====
-  const gradient = ctx.createLinearGradient(0, 45, canvas.width, 45);
-  gradient.addColorStop(0, '#004B9B');
-  gradient.addColorStop(1, '#003366');
-  ctx.fillStyle = gradient;
-  ctx.fillRect(40, 45, canvas.width - 80, 100);
+  // ===== Logo =====
+  try {
+    await new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        // Logo dimensions
+        const logoWidth = 200;
+        const logoHeight = (img.height / img.width) * logoWidth;
+        const x = (canvas.width - logoWidth) / 2;
+        ctx.drawImage(img, x, 45, logoWidth, logoHeight);
+        resolve();
+      };
+      img.onerror = reject;
+      img.src = 'https://genuspower.com/wp-content/uploads/2023/07/Genus-Logo.png';
+    });
+  } catch (e) {
+    // Fallback if image fails to load
+    ctx.fillStyle = '#004B9B';
+    ctx.font = 'bold 36px "Arial", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('GENUS', canvas.width / 2, 90);
+  }
 
-  // Header text
-  ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 36px "Arial", sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('GENUS POWER INFRASTRUCTURE LTD.', canvas.width / 2, 90);
+  // Header Subtext
+  ctx.fillStyle = '#555';
   ctx.font = '16px "Arial", sans-serif';
-  ctx.fillText('Sivsagar, Assam | Flood Relief Drive', canvas.width / 2, 120);
+  ctx.textAlign = 'center';
+  ctx.fillText('Sivsagar, Assam | Flood Relief Drive', canvas.width / 2, 130);
 
   // ===== Certificate Title =====
   ctx.fillStyle = '#2E7D32';
@@ -164,8 +179,8 @@ function drawCornerDecoration(ctx, x, y, corner) {
   ctx.restore();
 }
 
-export function downloadCertificate(donorName, amount) {
-  const canvas = generateCertificate(donorName, amount);
+export async function downloadCertificate(donorName, amount) {
+  const canvas = await generateCertificate(donorName, amount);
   const dataUrl = canvas.toDataURL('image/png');
 
   const link = document.createElement('a');

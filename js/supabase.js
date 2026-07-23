@@ -158,6 +158,18 @@ export async function verifyDonation(id) {
 
 export async function rejectDonation(id) {
   if (DEMO_MODE) { return true; }
-  const { error } = await supabase.from('donations').update({ is_rejected: true }).eq('id', id);
+  const { error } = await supabase.from('donations').update({ is_rejected: true, is_verified: false }).eq('id', id);
+  return !error;
+}
+
+export async function deleteDonation(id) {
+  if (DEMO_MODE) { return true; }
+  const { error } = await supabase.from('donations').delete().eq('id', id);
+  return !error;
+}
+
+export async function updateDonation(id, data) {
+  if (DEMO_MODE) { return true; }
+  const { error } = await supabase.from('donations').update(data).eq('id', id);
   return !error;
 }

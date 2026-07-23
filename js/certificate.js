@@ -3,6 +3,8 @@
  * Generates a beautiful thank-you certificate as a downloadable PNG.
  */
 
+import logoUrl from '../assets/logo.svg';
+
 export async function generateCertificate(donorName, amount, date = new Date()) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
@@ -59,7 +61,7 @@ export async function generateCertificate(donorName, amount, date = new Date()) 
         resolve();
       };
       img.onerror = reject;
-      img.src = './assets/logo.svg';
+      img.src = logoUrl;
     });
   } catch (e) {
     console.error("Could not load logo for certificate", e);
@@ -97,25 +99,30 @@ export async function generateCertificate(donorName, amount, date = new Date()) 
   ctx.stroke();
 
   // ===== Recognition Message =====
-  ctx.fillStyle = '#444444';
-  ctx.font = '20px "Arial", sans-serif';
-  ctx.fillText('in recognition of your generous contribution of', canvas.width / 2, 420);
+  const supportMessages = [
+    "Your kindness brings hope and healing.",
+    "Thank you for standing with families in need.",
+    "Your generosity lights up the darkest times.",
+    "Together, we are making a real difference.",
+    "Your support is a beacon of hope for Assam.",
+    "Thank you for being a hero to those in need."
+  ];
+  const randomMessage = supportMessages[Math.floor(Math.random() * supportMessages.length)];
 
-  // ===== Amount =====
-  ctx.fillStyle = '#2E7D32';
-  ctx.font = 'bold 40px "Arial", sans-serif';
-  ctx.fillText(`₹${amount.toLocaleString('en-IN')}`, canvas.width / 2, 475);
+  ctx.fillStyle = '#444444';
+  ctx.font = 'italic 26px "Georgia", serif';
+  ctx.fillText(randomMessage, canvas.width / 2, 450);
 
   // ===== Impact Message =====
   ctx.fillStyle = '#555555';
-  ctx.font = 'italic 18px "Arial", sans-serif';
-  ctx.fillText('Your generosity provides food, drinking water, medicines, clothes,', canvas.width / 2, 530);
-  ctx.fillText('and essential relief to families affected by devastating floods in Assam.', canvas.width / 2, 555);
+  ctx.font = '18px "Arial", sans-serif';
+  ctx.fillText('Your generosity helps provide food, drinking water, medicines, clothes,', canvas.width / 2, 510);
+  ctx.fillText('and essential relief to families affected by devastating floods in Assam.', canvas.width / 2, 535);
 
   // ===== Heart Symbol =====
   ctx.fillStyle = '#FF6B6B';
   ctx.font = '30px "Arial", sans-serif';
-  ctx.fillText('❤', canvas.width / 2, 600);
+  ctx.fillText('❤', canvas.width / 2, 580);
 
   // ===== Date and Signature Area =====
   const dateString = date.toLocaleDateString('en-IN', {

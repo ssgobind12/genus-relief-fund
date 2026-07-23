@@ -87,6 +87,47 @@ export async function getDonationStats() {
   return data || { total_donors: 0, total_amount: 0, today_amount: 0, families_supported: 0 };
 }
 
+export async function getWeeklyStats() {
+  if (DEMO_MODE) {
+    return [0, 0, 0, 0, 0, 0, 0];
+  }
+  
+  // Calculate date 7 days ago
+  const d = new Date();
+  d.setDate(d.getDate() - 6);
+  d.setHours(0, 0, 0, 0);
+  
+  const { data } = await supabase
+    .from('donations')
+    .select('amount, created_at')
+    .eq('is_verified', true)
+    .gte('created_at', d.toISOString());
+    
+  // Initialize array of 7 days with 0
+  const totals = [0, 0, 0, 0, 0, 0, 0];
+  
+  if (data) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    data.forEach(donation => {
+      const donationDate = new Date(donation.created_at);
+      donationDate.setHours(0, 0, 0, 0);
+      
+      // Calculate day difference from today (0 means today, 1 means yesterday)
+      const diffTime = today - donationDate;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (diffDays >= 0 && diffDays < 7) {
+        // Map 0 (today) to index 6, 1 (yesterday) to index 5, etc.
+        const index = 6 - diffDays;
+        totals[index] += donation.amount;
+      }
+    });
+  }
+  return totals;
+}
+
 export async function getRecentDonations(limit = 20) {
   if (DEMO_MODE) {
     return DEMO_DONATIONS.filter(d => d.is_verified).slice(0, limit).map(d => ({

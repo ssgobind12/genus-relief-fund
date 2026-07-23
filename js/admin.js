@@ -1,4 +1,4 @@
-import { supabase, DEMO_MODE, getAllDonations, verifyDonation as sbVerify, rejectDonation as sbReject, deleteDonation as sbDelete, updateDonation as sbUpdate, getDonationStats, addVerifiedDonation, getGalleryImages, uploadGalleryImage } from './supabase.js';
+import { supabase, DEMO_MODE, getAllDonations, verifyDonation as sbVerify, rejectDonation as sbReject, deleteDonation as sbDelete, updateDonation as sbUpdate, getDonationStats, getWeeklyStats, addVerifiedDonation, getGalleryImages, uploadGalleryImage } from './supabase.js';
 
 // Demo Data (Fallback)
 let DEMO_DONATIONS = [
@@ -110,6 +110,7 @@ document.querySelectorAll('.nav-item[data-target]').forEach(btn => {
 // Dashboard
 async function loadDashboard() {
     let stats = { total: 0, today: 0, weekly: 0, monthly: 0, donors: 0, pending: 0, verified: 0, avg: 0 };
+    const weeklyData = await getWeeklyStats();
 
     if (DEMO_MODE) {
         DEMO_DONATIONS.forEach(d => {
@@ -117,6 +118,15 @@ async function loadDashboard() {
             if (d.is_verified) {
                 stats.total += d.amount;
                 stats.verified++;
+                
+                const dDate = new Date(d.created_at);
+                const now = new Date();
+                const diffTime = now - dDate;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (diffDays >= 0 && diffDays < 7) {
+                    weeklyData[6 - diffDays] += d.amount;
+                }
             } else if (!d.is_rejected) {
                 stats.pending++;
             }
@@ -156,16 +166,16 @@ async function loadDashboard() {
     animateValue('stat-average', 0, stats.avg, 1000, true);
     animateValue('stat-pending', 0, stats.pending, 1000, false);
     animateValue('stat-verified', 0, stats.verified, 1000, false);
-    loadCharts(stats);
+    loadCharts(stats, weeklyData);
 }
 
 // Chart variables to hold instances
 let barChart = null;
 let pieChart = null;
 
-function loadCharts(stats) {
+function loadCharts(stats, weeklyData) {
     if (typeof Chart === 'undefined') {
-        setTimeout(() => loadCharts(stats), 100);
+        setTimeout(() => loadCharts(stats, weeklyData), 100);
         return;
     }
 
@@ -179,7 +189,7 @@ function loadCharts(stats) {
                 labels: ['6 Days Ago', '5 Days Ago', '4 Days Ago', '3 Days Ago', '2 Days Ago', 'Yesterday', 'Today'],
                 datasets: [{
                     label: 'Donation Amount (₹)',
-                    data: [15000, 22000, 18000, 35000, 28000, 40000, stats.today || 0],
+                    data: weeklyData || [0,0,0,0,0,0,0],
                     backgroundColor: 'rgba(0, 75, 155, 0.2)',
                     borderColor: '#004B9B',
                     borderWidth: 2,

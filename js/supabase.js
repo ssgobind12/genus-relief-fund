@@ -136,10 +136,8 @@ export async function getRecentDonations(limit = 20) {
     }));
   }
   const { data } = await supabase
-    .from('donations')
-    .select('id, donor_name, amount, created_at, city, message, is_anonymous')
-    .eq('is_verified', true)
-    .eq('is_rejected', false)
+    .from('public_donations')
+    .select('*')
     .order('created_at', { ascending: false })
     .limit(limit);
     

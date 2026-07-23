@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/variables.css">
     <link rel="stylesheet" href="./css/admin.css">
+    
+    <!-- Chart.js for Dashboard -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
 <body>
 
@@ -97,11 +100,11 @@
                 <div class="charts-row">
                     <div class="chart-container chart-daily">
                         <h3>Daily Donations</h3>
-                        <div class="chart-placeholder">[ Bar Chart Placeholder ]</div>
+                        <canvas id="dailyChart"></canvas>
                     </div>
                     <div class="chart-container chart-distribution">
                         <h3>Donation Distribution</h3>
-                        <div class="chart-placeholder">[ Pie Chart Placeholder ]</div>
+                        <canvas id="statusChart"></canvas>
                     </div>
                 </div>
             </section>

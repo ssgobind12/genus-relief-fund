@@ -1,4 +1,4 @@
-import { supabase, DEMO_MODE, getAllDonations, verifyDonation as sbVerify, rejectDonation as sbReject, deleteDonation as sbDelete, updateDonation as sbUpdate, getDonationStats, addVerifiedDonation } from './supabase.js';
+import { supabase, DEMO_MODE, getAllDonations, verifyDonation as sbVerify, rejectDonation as sbReject, deleteDonation as sbDelete, updateDonation as sbUpdate, getDonationStats, addVerifiedDonation, getGalleryImages, uploadGalleryImage } from './supabase.js';
 
 // Demo Data (Fallback)
 let DEMO_DONATIONS = [
@@ -103,6 +103,7 @@ document.querySelectorAll('.nav-item[data-target]').forEach(btn => {
         document.getElementById('page-title').innerText = e.target.innerText;
         if (targetId === 'dashboard-section') loadDashboard();
         if (targetId === 'donations-section') loadDonations(1);
+        if (targetId === 'gallery-section') loadGallery();
     });
 });
 
@@ -155,6 +156,57 @@ async function loadDashboard() {
     animateValue('stat-average', 0, stats.avg, 1000, true);
     animateValue('stat-pending', 0, stats.pending, 1000, false);
     animateValue('stat-verified', 0, stats.verified, 1000, false);
+    loadCharts(stats);
+}
+
+// Chart variables to hold instances
+let barChart = null;
+let pieChart = null;
+
+function loadCharts(stats) {
+    if (typeof Chart === 'undefined') return;
+
+    // Daily Donations Bar Chart
+    const barCtx = document.getElementById('dailyChart');
+    if (barCtx) {
+        if (barChart) barChart.destroy();
+        barChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['6 Days Ago', '5 Days Ago', '4 Days Ago', '3 Days Ago', '2 Days Ago', 'Yesterday', 'Today'],
+                datasets: [{
+                    label: 'Donation Amount (₹)',
+                    data: [15000, 22000, 18000, 35000, 28000, 40000, stats.today || 0],
+                    backgroundColor: '#004B9B',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
+
+    // Status Pie Chart
+    const pieCtx = document.getElementById('statusChart');
+    if (pieCtx) {
+        if (pieChart) pieChart.destroy();
+        pieChart = new Chart(pieCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Verified', 'Pending', 'Rejected'],
+                datasets: [{
+                    data: [stats.verified || 0, stats.pending || 0, 0],
+                    backgroundColor: ['#2E7D32', '#F59E0B', '#EF4444'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
 }
 
 function animateValue(id, start, end, duration, isCurrency) {
@@ -405,6 +457,67 @@ document.getElementById('prev-page')?.addEventListener('click', () => {
 document.getElementById('next-page')?.addEventListener('click', () => {
     loadDonations(currentPage + 1);
 });
+
+// Gallery Logic
+const galleryUploadArea = document.getElementById('gallery-upload');
+const galleryFileInput = document.getElementById('gallery-file-input');
+
+if (galleryUploadArea && galleryFileInput) {
+    galleryUploadArea.addEventListener('click', () => {
+        galleryFileInput.click();
+    });
+    
+    galleryFileInput.addEventListener('change', async (e) => {
+        if (!e.target.files || e.target.files.length === 0) return;
+        const file = e.target.files[0];
+        
+        galleryUploadArea.innerHTML = '<div style="padding:20px; text-align:center;">Uploading...</div>';
+        
+        try {
+            await uploadGalleryImage(file);
+            showToast('Image uploaded successfully', 'success');
+            loadGallery();
+        } catch (err) {
+            console.error('Gallery upload error', err);
+            showToast('Failed to upload image', 'error');
+        } finally {
+            galleryUploadArea.innerHTML = '<p>Drag & Drop images here or click to upload</p>';
+            galleryFileInput.value = '';
+        }
+    });
+}
+
+async function loadGallery() {
+    const grid = document.getElementById('gallery-grid');
+    if (!grid) return;
+    
+    grid.innerHTML = '<p>Loading images...</p>';
+    try {
+        const images = await getGalleryImages();
+        if (images.length === 0) {
+            grid.innerHTML = '<p style="padding:20px;">No images in gallery yet.</p>';
+            return;
+        }
+        
+        grid.innerHTML = images.map(img => `
+            <div class="gallery-item-admin" style="display:flex; flex-direction:column; gap:10px;">
+                <img src="${img.image_url}" alt="Gallery" style="width:100%; height:150px; object-fit:cover; border-radius: 8px;">
+                <button class="btn btn-danger btn-sm" onclick="deleteGalleryImage('${img.id}')">Delete</button>
+            </div>
+        `).join('');
+    } catch (err) {
+        grid.innerHTML = '<p>Error loading gallery</p>';
+    }
+}
+
+window.deleteGalleryImage = async (id) => {
+    if(!confirm("Delete this image?")) return;
+    if(!DEMO_MODE) {
+        await supabase.from('gallery').delete().eq('id', id);
+    }
+    showToast('Image deleted');
+    loadGallery();
+};
 
 // Init
 document.addEventListener('DOMContentLoaded', initAdmin);

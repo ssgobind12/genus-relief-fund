@@ -147,6 +147,22 @@ export async function getGalleryImages() {
   return data || [];
 }
 
+export async function uploadGalleryImage(file) {
+  if (DEMO_MODE) {
+    await new Promise(r => setTimeout(r, 1000));
+    return 'demo-gallery-url';
+  }
+  const fileName = `${Date.now()}-${file.name}`;
+  const { data, error } = await supabase.storage.from('gallery').upload(fileName, file);
+  if (error) throw error;
+  const { data: urlData } = supabase.storage.from('gallery').getPublicUrl(data.path);
+  
+  // Also insert into gallery table
+  await supabase.from('gallery').insert([{ image_url: urlData.publicUrl, title: file.name }]);
+  
+  return urlData.publicUrl;
+}
+
 // Subscribe to real-time updates
 export function subscribeToUpdates(callback) {
   if (DEMO_MODE) {

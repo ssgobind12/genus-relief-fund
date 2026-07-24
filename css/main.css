@@ -542,6 +542,17 @@ button, input, textarea, select {
   box-shadow: var(--shadow-glow-primary);
 }
 
+.qr-split-container {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+@media (max-width: 768px) {
+  .qr-split-container {
+    flex-direction: column;
+  }
+}
+
 .qr-image {
   max-width: 380px;
   width: 100%;

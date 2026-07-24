@@ -267,6 +267,26 @@ function setupCopyUPI() {
       });
     });
   }
+
+  const copyBtn2 = document.getElementById('copy-upi-btn-2');
+  const upiId2 = document.getElementById('upi-id-2');
+
+  if (copyBtn2 && upiId2) {
+    copyBtn2.addEventListener('click', () => {
+      navigator.clipboard.writeText(upiId2.textContent.trim()).then(() => {
+        showToast('UPI ID copied to clipboard!', 'success');
+      }).catch(() => {
+        // Fallback
+        const range = document.createRange();
+        range.selectNode(upiId2);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        showToast('UPI ID copied!', 'success');
+      });
+    });
+  }
 }
 
 // ==================== DOWNLOAD QR ====================
@@ -304,6 +324,24 @@ async function loadSecureQR() {
       URL.revokeObjectURL(url);
     };
     img.src = url;
+
+    // Load second QR
+    const res2 = await fetch('/qr-data-2.bin');
+    const blob2 = await res2.blob();
+    const url2 = URL.createObjectURL(blob2);
+    
+    const img2 = new Image();
+    img2.onload = () => {
+      const canvas2 = document.getElementById('qr-canvas-2');
+      if (canvas2) {
+        canvas2.width = img2.width;
+        canvas2.height = img2.height;
+        const ctx2 = canvas2.getContext('2d');
+        ctx2.drawImage(img2, 0, 0);
+      }
+      URL.revokeObjectURL(url2);
+    };
+    img2.src = url2;
   } catch(e) {
     console.error('Failed to load QR code', e);
   }

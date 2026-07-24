@@ -209,16 +209,37 @@
               <i data-lucide="scan-line"></i>
               <span>Scan to Donate</span>
             </div>
-            <div class="qr-image-wrap">
-              <canvas class="qr-image" id="qr-canvas" style="width: 100%; height: auto; border-radius: 8px;"></canvas>
-            </div>
-            <div class="upi-id-wrap">
-              <span class="upi-label">UPI ID</span>
-              <div class="upi-id-row" style="margin-bottom: 15px;">
-                <code class="upi-id" id="upi-id">ssgobind12@okaxis</code>
-                <button class="copy-btn" id="copy-upi-btn" title="Copy UPI ID">
-                  <i data-lucide="copy"></i>
-                </button>
+            <div class="qr-split-container">
+              <!-- QR Code 1 -->
+              <div style="flex: 1;">
+                <div class="qr-image-wrap" style="margin-bottom: 10px;">
+                  <canvas class="qr-image" id="qr-canvas" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 0;"></canvas>
+                </div>
+                <div class="upi-id-wrap" style="margin-bottom: 0;">
+                  <span class="upi-label" style="font-size: 0.8rem;">UPI: Shubham</span>
+                  <div class="upi-id-row" style="margin-bottom: 0; padding: 8px;">
+                    <code class="upi-id" id="upi-id" style="font-size: 0.85rem;">ssgobind12@okaxis</code>
+                    <button class="copy-btn" id="copy-upi-btn" title="Copy UPI ID" style="width: 32px; height: 32px;">
+                      <i data-lucide="copy" style="width: 16px; height: 16px;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- QR Code 2 -->
+              <div style="flex: 1;">
+                <div class="qr-image-wrap" style="margin-bottom: 10px;">
+                  <canvas class="qr-image" id="qr-canvas-2" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 0;"></canvas>
+                </div>
+                <div class="upi-id-wrap" style="margin-bottom: 0;">
+                  <span class="upi-label" style="font-size: 0.8rem;">UPI: Amlan</span>
+                  <div class="upi-id-row" style="margin-bottom: 0; padding: 8px;">
+                    <code class="upi-id" id="upi-id-2" style="font-size: 0.85rem;">8402050163@ptsbi</code>
+                    <button class="copy-btn" id="copy-upi-btn-2" title="Copy UPI ID" style="width: 32px; height: 32px;">
+                      <i data-lucide="copy" style="width: 16px; height: 16px;"></i>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             

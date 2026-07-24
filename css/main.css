@@ -353,13 +353,16 @@ button, input, textarea, select {
 
 .hero-section {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 600px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 80px;
   overflow: hidden;
-  background: url('https://images.unsplash.com/photo-1542867018-052061036f06?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+  box-sizing: border-box;
+  background: var(--bg-main) url('https://images.unsplash.com/photo-1542867018-052061036f06?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
 }
 
 .hero-overlay {

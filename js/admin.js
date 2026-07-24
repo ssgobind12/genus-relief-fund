@@ -466,6 +466,25 @@ document.querySelectorAll('.close-modal').forEach(btn => {
 
 // Filters
 document.getElementById('donation-search')?.addEventListener('input', debounce(() => loadDonations(1), 300));
+
+document.getElementById('global-search')?.addEventListener('input', debounce((e) => {
+    const val = e.target.value;
+    const donationSearch = document.getElementById('donation-search');
+    if (donationSearch) {
+        donationSearch.value = val;
+        // Switch to donations tab
+        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+        const targetBtn = document.querySelector('.nav-item[data-target="donations-section"]');
+        if (targetBtn) targetBtn.classList.add('active');
+        document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+        const targetSec = document.getElementById('donations-section');
+        if (targetSec) targetSec.classList.add('active');
+        const pageTitle = document.getElementById('page-title');
+        if (pageTitle) pageTitle.innerText = 'Donations';
+        
+        loadDonations(1);
+    }
+}, 300));
 document.getElementById('filter-status')?.addEventListener('change', () => loadDonations(1));
 
 document.getElementById('prev-page')?.addEventListener('click', () => {
